@@ -23,6 +23,7 @@
                 <button onclick="showStep('step1')" class="nav-btn px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold shadow-sm">1. Ollama</button>
                 <button onclick="showStep('step2')" class="nav-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300">2. Models</button>
                 <button onclick="showStep('step3')" class="nav-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300">3. Hermes</button>
+                <button onclick="showStep('step4')" class="nav-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300">4. Launch</button>
                 <button onclick="showStep('trouble')" class="nav-btn px-4 py-2 bg-red-100 text-red-700 rounded-lg font-semibold hover:bg-red-200">⚠️ แก้ไขปัญหา</button>
             </nav>
 
@@ -151,6 +152,54 @@
                             </div>
                         </li>
                     </ol>
+                </div>
+
+                <!-- Step 4: Launch -->
+                <div id="step4" class="setup-section hidden">
+                    <h2 class="text-2xl font-bold mb-4">4. รัน Hermes Agent</h2>
+                    <p class="mb-4 text-gray-600">หลังจากติดตั้งทุกอย่างเรียบร้อย รันคำสั่งด้านล่างเพื่อเปิดใช้งาน Hermes Agent:</p>
+                    
+                    <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-6 rounded-xl mb-6">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-white text-purple-700 px-3 py-1 rounded-full text-sm font-bold mr-3">Quick Start</span>
+                            <span class="text-sm opacity-90">วิธีที่เร็วที่สุด</span>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur rounded-lg p-4 flex justify-between items-center">
+                            <code id="cmd-launch" class="text-sm font-mono break-all">ollama launch hermes</code>
+                            <button onclick="copyToClipboard('cmd-launch', this)" class="bg-white text-purple-700 px-3 py-1 rounded font-semibold text-sm hover:bg-gray-100 transition ml-2">คัดลอก</button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+                            <h3 class="font-bold text-lg mb-3">🔧 สิ่งที่ <code>ollama launch hermes</code> ทำให้อัตโนมัติ</h3>
+                            <ol class="list-decimal ml-6 space-y-3 text-gray-700">
+                                <li><strong>ติดตั้ง</strong> — ถ้ายังไม่ได้ติดตั้ง Hermes จะ prompt ให้ติดตั้งผ่าน Nous Research install script</li>
+                                <li><strong>เลือก Model</strong> — เลือก model ที่โหลดมาแล้ว (local หรือ cloud)</li>
+                                <li><strong>Onboarding</strong> — ตั้งค่า Ollama provider ชี้ไปที่ <code>http://127.0.0.1:11434/v1</code></li>
+                                <li><strong>Gateway</strong> — เชื่อมต่อแพลตฟอร์มแชท (Telegram, Discord, Slack, WhatsApp, Signal, Email)</li>
+                            </ol>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
+                            <h3 class="font-bold text-lg mb-3">💬 เชื่อมต่อแพลตฟอร์มแชท</h3>
+                            <p class="mb-4 text-gray-700">หลังติดตั้ง สามารถเชื่อมต่อ Telegram, Discord, Slack, WhatsApp, Signal หรือ Email ได้ด้วยคำสั่ง:</p>
+                            <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center">
+                                <code id="cmd-gateway-setup" class="text-sm font-mono break-all">hermes gateway setup</code>
+                                <button onclick="copyToClipboard('cmd-gateway-setup', this)" class="copy-btn border border-gray-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-50 border border-amber-300 rounded-xl p-6">
+                            <h3 class="font-bold text-amber-800 mb-3">⚠️ Windows</h3>
+                            <p class="text-gray-700">Hermes บน Windows ต้องใช้ <strong>WSL2</strong> ก่อน ติดตั้งด้วยคำสั่ง:</p>
+                            <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center mt-3">
+                                <code id="cmd-wsl" class="text-sm font-mono break-all">wsl --install</code>
+                                <button onclick="copyToClipboard('cmd-wsl', this)" class="copy-btn border border-gray-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+                            </div>
+                            <p class="mt-3 text-sm text-gray-500">จากนั้นรัน <code>ollama launch hermes</code> อีกครั้งจากใน WSL shell</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="trouble" class="setup-section hidden">
