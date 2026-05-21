@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermes Agent Setup Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .copy-btn:hover { background-color: #3b82f6; color: white; }
+        .setup-section { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4 md:p-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        <header class="bg-blue-600 p-6 text-white">
+            <h1 class="text-3xl font-bold">Hermes Agent Setup Guide</h1>
+            <p class="mt-2 opacity-90">คู่มือการติดตั้งแบบ Step-by-Step</p>
+        </header>
+
+        <div class="p-6">
+            <nav class="flex space-x-2 mb-8 border-b pb-4 overflow-x-auto">
+                <button onclick="showStep('step1')" class="nav-btn px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold shadow-sm">1. Ollama</button>
+                <button onclick="showStep('step2')" class="nav-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300">2. Models</button>
+                <button onclick="showStep('step3')" class="nav-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300">3. Hermes</button>
+                <button onclick="showStep('trouble')" class="nav-btn px-4 py-2 bg-red-100 text-red-700 rounded-lg font-semibold hover:bg-red-200">⚠️ แก้ไขปัญหา</button>
+            </nav>
+
+            <div id="step-content">
+                <!-- Step 1: Ollama -->
+                <div id="step1" class="setup-section">
+                    <h2 class="text-2xl font-bold mb-4">1. ติดตั้ง Ollama</h2>
+                    <p class="mb-4 text-gray-600">เลือกระบบปฏิบัติการของคุณ:</p>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block mb-2 font-semibold text-sm text-gray-700">Windows (PowerShell):</label>
+                            <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center">
+                                <code id="cmd-ollama-win" class="text-sm font-mono break-all">irm https://ollama.com/install.ps1 | iex</code>
+                                <button onclick="copyToClipboard('cmd-ollama-win', this)" class="copy-btn border border-gray-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-semibold text-sm text-gray-700">Linux (WSL2/Terminal):</label>
+                            <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center">
+                                <code id="cmd-ollama-linux" class="text-sm font-mono break-all">curl -fsSL https://ollama.com/install.sh | sh</code>
+                                <button onclick="copyToClipboard('cmd-ollama-linux', this)" class="copy-btn border border-gray-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Models -->
+                <div id="step2" class="setup-section hidden">
+                    <h2 class="text-2xl font-bold mb-4">2. โหลด Model</h2>
+                    <p class="mb-4">เลือกดาวน์โหลดโมเดลจาก <a href="https://huggingface.co/models" target="_blank" class="text-blue-600 underline font-bold">Hugging Face</a></p>
+                    <p class="mb-4">โมเดลแนะนำจากนักพัฒนา <a href="https://huggingface.co/HauhauCS" target="_blank" class="text-blue-600 underline font-bold">HauhauCS</a>:</p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block mb-2 font-semibold text-sm">Qwen3.5-9B-Uncensored:</label>
+                            <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center">
+                                <code id="cmd-model1" class="text-sm font-mono break-all">ollama pull hf.co/HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive:Q8_0</code>
+                                <button onclick="copyToClipboard('cmd-model1', this)" class="copy-btn border border-gray-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-semibold text-sm">Gemma-4-E4B-Uncensored:</label>
+                            <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center">
+                                <code id="cmd-model2" class="text-sm font-mono break-all">ollama pull hf.co/HauhauCS/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive:Q8_K_P</code>
+                                <button onclick="copyToClipboard('cmd-model2', this)" class="copy-btn border border-gray-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Hermes -->
+                <div id="step3" class="setup-section hidden">
+                    <h2 class="text-2xl font-bold mb-4">3. ติดตั้ง Hermes & Gateway</h2>
+                    <ol class="list-decimal ml-6 space-y-4">
+                        <li>ติดตั้งผ่านสคริปต์หลัก:
+                            <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center mt-2">
+                                <code id="cmd-hermes" class="text-sm font-mono break-all">curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash</code>
+                                <button onclick="copyToClipboard('cmd-hermes', this)" class="copy-btn border border-gray-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+                            </div>
+                        </li>
+                        <li>เชื่อมต่อ Gateway สำหรับแอปแชท:
+                            <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center mt-2">
+                                <code id="cmd-gateway" class="text-sm font-mono break-all">hermes gateway setup</code>
+                                <button onclick="copyToClipboard('cmd-gateway', this)" class="copy-btn border border-gray-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+
+                <div id="trouble" class="setup-section hidden">
+                    <h2 class="text-2xl font-bold mb-4 text-red-600">⚠️ แก้ไขปัญหา (Troubleshooting)</h2>
+                    <p class="mb-4 text-gray-700">หากพบ Error ว่า: <code class="bg-red-100 text-red-800 px-1">Requires zstd for extraction</code> ให้รันคำสั่งนี้เพื่อติดตั้งเครื่องมือที่จำเป็น:</p>
+                    <div class="bg-red-800 text-white p-4 rounded-lg flex justify-between items-center">
+                        <code id="cmd-fix" class="text-sm font-mono break-all">sudo apt update && sudo apt install zstd -y</code>
+                        <button onclick="copyToClipboard('cmd-fix', this)" class="copy-btn border border-red-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+                    </div>
+                    <p class="mt-4 text-sm text-gray-500">หมายเหตุ: คำสั่งนี้ใช้สำหรับสภาพแวดล้อม Linux หรือ WSL2 เท่านั้น</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showStep(id) {
+            // Hide all
+            document.querySelectorAll('.setup-section').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(el => {
+                el.classList.remove('bg-blue-600', 'text-white');
+                el.classList.add('bg-gray-200', 'text-gray-800');
+            });
+            // Show selected
+            document.getElementById(id).classList.remove('hidden');
+            event.target.classList.add('bg-blue-600', 'text-white');
+            event.target.classList.remove('bg-gray-200', 'text-gray-800');
+        }
+
+        function copyToClipboard(elementId, btn) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = 'คัดลอกแล้ว!';
+                btn.classList.add('bg-green-600', 'border-green-600');
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.classList.remove('bg-green-600', 'border-green-600');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
