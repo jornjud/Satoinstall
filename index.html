@@ -52,22 +52,83 @@
                 <!-- Step 2: Models -->
                 <div id="step2" class="setup-section hidden">
                     <h2 class="text-2xl font-bold mb-4">2. โหลด Model</h2>
-                    <p class="mb-4">เลือกดาวน์โหลดโมเดลจาก <a href="https://huggingface.co/models" target="_blank" class="text-blue-600 underline font-bold">Hugging Face</a></p>
-                    <p class="mb-4">โมเดลแนะนำจากนักพัฒนา <a href="https://huggingface.co/HauhauCS" target="_blank" class="text-blue-600 underline font-bold">HauhauCS</a>:</p>
+                    <p class="mb-4 text-gray-600">เลือกโมเดลตาม VRAM ของการ์ดจอคุณ:</p>
                     
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block mb-2 font-semibold text-sm">Qwen3.5-9B-Uncensored:</label>
-                            <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center">
-                                <code id="cmd-model1" class="text-sm font-mono break-all">ollama pull hf.co/HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive:Q8_0</code>
-                                <button onclick="copyToClipboard('cmd-model1', this)" class="copy-btn border border-gray-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+                    <div class="space-y-8">
+                        <!-- VRAM 16GB Section -->
+                        <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
+                            <div class="flex items-center mb-4">
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold mr-3">VRAM 16GB+</span>
+                                <span class="text-gray-600 text-sm">สำหรับ RTX 4070 / RTX 4080 / RTX 4090 / Apple M-series Pro/Max</span>
+                            </div>
+                            <p class="mb-4 text-gray-700">โมเดลแนะนำจาก <a href="https://huggingface.co/HauhauCS" target="_blank" class="text-blue-600 underline font-bold">HauhauCS</a> — ความสามารถสูงสุด รองรับ reasoning และ long context ได้ดี</p>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block mb-2 font-semibold text-sm">Qwen3.5-9B-Uncensored (แนะนำ):</label>
+                                    <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center">
+                                        <code id="cmd-model1" class="text-sm font-mono break-all">ollama pull hf.co/HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive:Q8_0</code>
+                                        <button onclick="copyToClipboard('cmd-model1', this)" class="copy-btn border border-gray-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block mb-2 font-semibold text-sm">Gemma-4-9B-Uncensored:</label>
+                                    <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center">
+                                        <code id="cmd-model2" class="text-sm font-mono break-all">ollama pull hf.co/HauhauCS/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive:Q8_K_P</code>
+                                        <button onclick="copyToClipboard('cmd-model2', this)" class="copy-btn border border-gray-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <label class="block mb-2 font-semibold text-sm">Gemma-4-E4B-Uncensored:</label>
-                            <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center">
-                                <code id="cmd-model2" class="text-sm font-mono break-all">ollama pull hf.co/HauhauCS/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive:Q8_K_P</code>
-                                <button onclick="copyToClipboard('cmd-model2', this)" class="copy-btn border border-gray-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+
+                        <!-- VRAM 4GB Section -->
+                        <div class="bg-emerald-50 border-2 border-emerald-200 rounded-xl p-6">
+                            <div class="flex items-center mb-4">
+                                <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-bold mr-3">VRAM 4GB</span>
+                                <span class="text-gray-600 text-sm">สำหรับ RTX 3060 / RTX 3050 / การ์ดจอรุ่นเก่า / MacBook Air M1-M2</span>
+                            </div>
+                            <p class="mb-4 text-gray-700">โมเดลแนะนำจาก <a href="https://huggingface.co/HauhauCS" target="_blank" class="text-emerald-600 underline font-bold">HauhauCS</a> — ขนาดเล็ก ใช้งานได้แม้ VRAM น้อย เหมาะกับเครื่องทั่วไป</p>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block mb-2 font-semibold text-sm">Qwen3.5-4B-Uncensored (แนะนำ):</label>
+                                    <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center">
+                                        <code id="cmd-model3" class="text-sm font-mono break-all">ollama pull hf.co/HauhauCS/Qwen3.5-4B-Uncensored-HauhauCS-Aggressive:Q4_K_M</code>
+                                        <button onclick="copyToClipboard('cmd-model3', this)" class="copy-btn border border-gray-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block mb-2 font-semibold text-sm">Gemma-4-2B-Uncensored:</label>
+                                    <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center">
+                                        <code id="cmd-model4" class="text-sm font-mono break-all">ollama pull hf.co/HauhauCS/Gemma-4-E2B-Uncensored-HauhauCS-Aggressive:IQ3_M</code>
+                                        <button onclick="copyToClipboard('cmd-model4', this)" class="copy-btn border border-gray-500 px-3 py-1 rounded text-sm transition ml-2">คัดลอก</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Comparison Note -->
+                        <div class="bg-yellow-50 border border-yellow-300 rounded-lg p-4">
+                            <h3 class="font-bold text-yellow-800 mb-2">📊 เปรียบเทียบความต่าง</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <p class="font-semibold text-blue-700">16GB — โมเดลใหญ่</p>
+                                    <ul class="list-disc ml-4 text-gray-700">
+                                        <li>ความสามารถ reasoning สูงกว่า</li>
+                                        <li>context length ยาวกว่า (32K+ tokens)</li>
+                                        <li>ตอบคำถามซับซ้อนได้ดีกว่า</li>
+                                        <li>ใช้ VRAM มาก — ไม่รองรับการ์ดจอรุ่นเก่า</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-emerald-700">4GB — โมเดลเล็ก</p>
+                                    <ul class="list-disc ml-4 text-gray-700">
+                                        <li>รองรับการ์ดจอทั่วไป (RTX 3060 ลงไป)</li>
+                                        <li>ใช้งานได้แม้ VRAM 4GB</li>
+                                        <li>ตอบคำถามทั่วไปได้ดี</li>
+                                        <li>context length สั้นกว่า (~8K tokens)</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
